@@ -12,7 +12,13 @@ function Forms() {
         <div className="container">
             <form 
             onSubmit={handleSubmit}
-            className=" d-flex justify-content-center flex-column align-item-center my-3"
+            className="
+             d-flex 
+             justify-content-center
+              flex-column 
+             
+              align-item-center
+               my-3"
              >
                 <div>
                     <Input

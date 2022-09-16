@@ -1,33 +1,15 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from "react"
 import { Button, Table } from "reactstrap"
 import Forms from './Forms'
-import { FetchPostfromLocal ,deletePost} from "./Api"
+import { useGlobalContext } from './Context'
 
 function FetchPost() {
-    const [posts, setPosts] = useState([])
+    const {posts, handleEdit,removePost,edit } = useGlobalContext()
 
-
-
-    useEffect(() => {
-        loadPost()
-    }, [])
-
-    const loadPost = () => FetchPostfromLocal().then(res => setPosts(res.data))
-
-    const removePost = (id) => {
-        deletePost(id).then(res => {
-            loadPost()
-        })
-        .catch(err => console.log(err))
-    }
-    
     return (
-
         <>
-
-            <h4>CRUD Application</h4>
-            <Forms loadPost={loadPost} setPosts={setPosts} handleEdit={handleEdit}/>
+            <h4 className="text-center mt-2">CRUD Application</h4>
+            <Forms />
             <Table>
                 <thead>
                     <tr>
@@ -52,27 +34,27 @@ function FetchPost() {
                     </tr>
                 </thead>
                 <tbody>
-
                     {
                         posts.map(post => {
-                            return (<tr key={post.id}>
+                            const {id,fname,lname,email} = post
+                            return (<tr key={id}>
                                 <th scope="row">
-                                    {post.id}
+                                    {id}
                                 </th>
                                 <td>
-                                    {post.fname}
+                                    {fname}
                                 </td>
                                 <td>
-                                    {post.lname}
+                                    {lname}
                                 </td>
                                 <td>
-                                    {post.email}
+                                    {email}
                                 </td>
                                 <td>
                                     <Button
                                         color='success'
                                         size='sm'
-                                        onClick={() => handleEdit(post)}
+                                        onClick={(e) => handleEdit(post)}
                                     >
                                         Edit
                                     </Button>
@@ -87,16 +69,10 @@ function FetchPost() {
                                     </Button>
                                 </td>
                             </tr>)
-                        }
-                        )
-
+                        })
                     }
-
-
-
                 </tbody>
             </Table>
-
         </>
     )
 }

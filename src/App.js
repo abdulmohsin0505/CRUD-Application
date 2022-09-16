@@ -1,11 +1,12 @@
-import FetchPost from "./Component/FetchPost";
+import { AppProvider} from "./Component/CrudWithJson/Context"
+import FetchPost from "./Component/CrudWithJson/FetchPost";
 
 function App() {
- 
   return (
-    <div>
+    <AppProvider>
       <FetchPost/>
-    </div>
+    </AppProvider>
+      
   );
 }
 
